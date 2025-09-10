@@ -36,6 +36,12 @@
 *.exe
 *.out
 *.app
+/bin
+executable
 
 # debug information files
 *.dwo
+DataRAM
+/obj
+
+/.vscode

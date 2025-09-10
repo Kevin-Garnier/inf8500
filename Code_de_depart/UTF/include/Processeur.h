@@ -5,6 +5,7 @@
 #include "InterfaceRead.h"
 #include "InterfaceWrite.h"
 
+
 class Processeur : public sc_module {
     public:
     sc_in<bool> done_i;
@@ -18,7 +19,8 @@ class Processeur : public sc_module {
 
 
     private:
+    inline static constexpr int dim = 4;
     SC_HAS_PROCESS(Processeur);
-    void writeMat(int baseAddr, int mat[4][4]);
-    void readMat(int baseAddr, int mat[4][4]);
+    void writeMat(int baseAddr, int mat[dim][dim]);
+    void readMat(int baseAddr, int mat[dim][dim]);
 };

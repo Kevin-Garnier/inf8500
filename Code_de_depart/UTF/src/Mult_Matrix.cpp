@@ -16,6 +16,7 @@ Mult_Matrix::Mult_Matrix( sc_module_name zName)
 {
 	// Method (one shot) with no sensitive list.
 	SC_THREAD(thread);
+	done_o.initialize(false);
 }
 
 
@@ -26,14 +27,18 @@ Mult_Matrix::Mult_Matrix( sc_module_name zName)
 ///////////////////////////////////////////////////////////////////////////////
 Mult_Matrix::~Mult_Matrix()
 {
-}	
+}
 
-	
+
 void Mult_Matrix::thread(void)
 {
+
     const unsigned N = dim * dim;
 
 	while (true) {
+		if (!go_i.read()) wait(go_i.posedge_event());
+
+		// Attente du signal 'go'
 		// Lecture: matrice A (offset 0)
 		for (int i = 0; i < dim; ++i) {
 			for (int j = 0; j < dim; ++j) {
@@ -66,11 +71,15 @@ void Mult_Matrix::thread(void)
 				out->Write((2 * N + idx) * 4, mat_out[i][j]);
 			}
 		}
-		
-		sc_stop();
-		wait();
+
+		// Envoi du signal 'done'
+		done_o.write(true);
+		wait(SC_ZERO_TIME); // Assurer la propagation du signal
+		done_o.write(false);
+		// sc_stop();
+		// wait();
 	}
-	
+
 }
 
 void Mult_Matrix::compute(void)

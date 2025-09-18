@@ -4,6 +4,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 #include "DataRAM.h"
+#include "Settings.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -34,6 +35,16 @@ DataRAM::~DataRAM()
 unsigned int DataRAM::Read(unsigned int addr)
 {
 	// On appele la classe parent
+	//sleep 16µs
+	#ifdef D40
+	wait(21, SC_US);
+	#endif
+	#ifdef D128
+	wait(169, SC_US);
+	#endif
+	#ifdef D128
+	wait(55, SC_US);
+	#endif
 	return RAM::Read(addr);
 }
 
@@ -54,6 +65,16 @@ void DataRAM::Write(unsigned int addr, unsigned int data)
 	}
 	else
 	{
+
+		#ifdef D40
+		wait(21, SC_US);
+		#endif
+		#ifdef D128DMA
+		wait(169, SC_US);
+		#endif
+		#ifdef D128
+		wait(55, SC_US);
+		#endif
 		// On copie le contenu de la m�moire
 //		memcpy( (void*)((long)(m_ptrRAM) + addr), &data, 4);  // on peut aussi utilise uintptr_t
 		memcpy( (void*)((uintptr_t)(m_ptrRAM) + addr), &data, 4);

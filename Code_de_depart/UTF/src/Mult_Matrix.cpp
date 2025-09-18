@@ -4,6 +4,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 #include "Mult_Matrix.h"
+include "Settings.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -93,6 +94,13 @@ void Mult_Matrix::compute(void)
 				sum += mat_a[ia][id] * mat_b[id][ib];
 			mat_out[ia][ib] = sum;
 		};
+
+		#ifdef D128DMA
+		wait(84216320, SC_NS);
+		#endif
+		#ifdef D128
+		wait(84216320, SC_NS);
+		#endif
 
 		return;
 }

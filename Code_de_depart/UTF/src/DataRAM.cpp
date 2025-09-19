@@ -37,13 +37,13 @@ unsigned int DataRAM::Read(unsigned int addr)
 	// On appele la classe parent
 	//sleep 16µs
 	#ifdef D40
-	wait(21, SC_US);
+	wait(D40_COMM_TIME, SC_US);
 	#endif
 	#ifdef D128
-	wait(169, SC_US);
+	wait(D128_COMM_TIME, SC_US);
 	#endif
-	#ifdef D128
-	wait(55, SC_US);
+	#ifdef D128DMA
+	wait(D128DMA_COMM_TIME, SC_US);
 	#endif
 	return RAM::Read(addr);
 }

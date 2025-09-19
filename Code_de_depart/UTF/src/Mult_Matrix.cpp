@@ -96,10 +96,10 @@ void Mult_Matrix::compute(void)
 		};
 
 		#ifdef D128DMA
-		wait(84216320, SC_NS);
+		wait(D128DMA_EXEC_TIME, SC_NS);
 		#endif
 		#ifdef D128
-		wait(84216320, SC_NS);
+		wait(D128_EXEC_TIME, SC_NS);
 		#endif
 
 		return;

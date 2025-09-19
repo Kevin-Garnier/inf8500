@@ -9,11 +9,12 @@
 #include "Wrapper.h"
 #include "Processeur.h"
 #include "DataRAM.h"
+#include "Settings.h"
 
 using namespace sc_core;
 using namespace std;
 
-#define RAMSIZE 0xFFFF
+#define RAMSIZE (3 * CDIM * CDIM * sizeof(int))  // espace pour A, B et C
 
 // Global variables
 bool m_bError = false;
@@ -53,10 +54,22 @@ int sc_main(int arg_count, char **arg_value)
 	iMult_Matrix.done_o(done_signal);
 	iProcesseur.done_i(done_signal);
 	// Démarrage de l'application
+
+
+	#ifdef D40
+	std::cout << "Simulation avec D40" << std::endl;
+	#endif
+	#ifdef D128DMA
+	std::cout << "Simulation avec D128DMA" << std::endl;
+	#endif
+	#ifdef D128
+	std::cout << "Simulation avec D128" << std::endl;
+	#endif
+
 	if (!m_bError)
 	{
 		cout << "Demarrage de la simulation." << endl;
-		sc_start(20, SC_MS);
+		sc_start();
 		cout << endl << "Simulation s'est terminee a " << sc_time_stamp() << " ns" << endl;
 	}
 	// Fin du programme

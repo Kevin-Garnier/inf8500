@@ -10,6 +10,7 @@
 #include "Wrapper.h"
 #include "InterfaceRead.h"
 #include "InterfaceWrite.h"
+#include "Settings.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,7 +37,7 @@ class Mult_Matrix : public sc_module
 
 	private:
 
-		inline static constexpr int dim = 4;
+		inline static constexpr int dim = CDIM;
 
 		unsigned int mat_a[dim][dim];
 		unsigned int mat_b[dim][dim];

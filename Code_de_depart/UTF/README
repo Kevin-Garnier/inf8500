@@ -1,0 +1,78 @@
+#TP1 - Questions
+
+## Q1 
+
+Les sc_events sont propre a un module et ne sont pas des ports, on ne peut donc pas communiquer dessus. Donc si wait dans une classe sur un event l'autre classe ne pouvait pas le reveiller. Fix avec port
+
+## Q2
+
+Etapes 1
+- Init matrice avec dim en parametres avec valeur croissante
+
+2)
+Envoie sur la ram dans le même schema que Mat Mult lit
+Envoie de A puis B
+
+3)
+Utilisation du port go (bool). mise a go à 1
+Attente d'un delta cycle
+mise a go à false (pour eviter une execution continue)
+
+4) reveil lorsque que go_i sur posedge
+
+5) calcul et mise a done sur 1 + attente d'un delat cycle + done à false
+
+
+6) wait (done)
+
+7) lecture de la matrice de sortie à l'endroit ou mat_mult l'a enregistré dans la ram dans le même format.
+Multiplications de A et B initiales
+Comparaison entre la matrie lu dans la ram et celle calculée
+
+Processor controle le nombre d'iterations un argument passé et une condtion dans la boucle while avant appel à sc_stop suffit.
+
+## Q3
+
+Pour simuler les delai : 
+
+- pour le temps de calcul, on a mis un wait avec le temps total à la fin du calcul matriciel dans Mat_Mult pour minimiser le nombre d'appels a wait (et donc accelerer le simulateur)
+-pour la communication, 
+
+
+Q4 : 
+Version 1.i
+
+Simulation avec D40
+Demarrage de la simulation.
+Processeur started, dim=40, iterations=1
+Iteration restante 1
+Matrices A et B ecrites dans la RAM
+Matrice C ecrite dans la RAM
+Temps d'exécution réel = 45049 us
+Matrice C lue dans la RAM
+Matrix multiplication successful.
+
+Simulation s'est terminee a 103360 us ns
+
+Processeur started, dim=128, iterations=1, DMA
+Iteration restante 1
+Matrices A et B ecrites dans la RAM
+Matrice C ecrite dans la RAM
+Temps d'exécution réel = 1410809 us
+Matrice C lue dans la RAM
+Matrix multiplication successful.
+
+Simulation s'est terminee a 8390574080 ns ns
+
+
+Simulation avec D128
+Demarrage de la simulation.
+Processeur started, dim=128, iterations=1
+Iteration restante 1
+Matrices A et B ecrites dans la RAM
+Matrice C ecrite dans la RAM
+Temps d'exécution réel = 1405712 us
+Matrice C lue dans la RAM
+Matrix multiplication successful.
+
+Simulation s'est terminee a 21710766080 ns ns

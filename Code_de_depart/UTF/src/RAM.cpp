@@ -4,6 +4,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 #include "RAM.h"
+#include "Settings.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -84,7 +85,7 @@ RAM::RAM( sc_module_name name, const char *fileName, unsigned long RAMSize, bool
 
 #else	/* pour la création de plus grosse matrices */
 
-constexpr std::size_t DIM = 4;
+constexpr std::size_t DIM = CDIM;
 int A[DIM][DIM], B[DIM][DIM];
 
 // Remplissage
@@ -96,7 +97,7 @@ for (std::size_t i=0;i<DIM;i++)
 
 // Écriture dans la RAM (A || B || C=0)
 copy_AB_to_ram_loop(m_ptrRAM, m_RAMSize, A, B, /*zeroC=*/true);
-dump_matrices_ABC32(m_ptrRAM, DIM);
+//dump_matrices_ABC32(m_ptrRAM, DIM);
 
 }
 
